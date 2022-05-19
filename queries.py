@@ -1,3 +1,5 @@
+create_business_schema = """CREATE SCHEMA IF NOT EXISTS subscriptions;"""
+
 create_subscription_table = """
 CREATE TABLE IF NOT EXISTS postgres.subscriptions (
 	subscription_id varchar PRIMARY KEY,
