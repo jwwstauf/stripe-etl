@@ -1,9 +1,8 @@
-create_business_schema = """CREATE SCHEMA IF NOT EXISTS subscriptions;"""
+create_subscription_schema = """CREATE SCHEMA IF NOT EXISTS subscriptions;"""
 
 create_subscription_table = """
-CREATE TABLE IF NOT EXISTS postgres.subscriptions (
+CREATE TABLE IF NOT EXISTS subscriptions (
 	subscription_id varchar PRIMARY KEY,
-	object varchar,
 	billing_cycle_anchor date,
 	cancel_at date,
 	cancel_at_period_end boolean, 
@@ -15,15 +14,14 @@ CREATE TABLE IF NOT EXISTS postgres.subscriptions (
 	ended_at date,
 	quantity smallint,
     start_date date,
-    status varchar,
+    status varchar
     );
 """
 
-insert__table = """INSERT INTO postgres.subscriptions VALUES ('{}', '{}', '{}', '{}', {}, '{}', {}, {}, {}, '{}', '{}', '{}')
+insert__table = """INSERT INTO postgres.subscriptions VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
                         ON CONFLICT (subscription_id)
                         DO UPDATE SET
                         subscription_id = EXCLUDED.subscription_id,
-                        object = EXCLUDED.object,
                         billing_cycle_anchor = EXCLUDED.billing_cycle_anchor,
                         cancel_at = EXCLUDED.cancel_at,
                         cancel_at_period_end = EXCLUDED.cancel_at_period_end,
