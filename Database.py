@@ -19,9 +19,8 @@ class database_driver():
         print("Connection successful")
         return conn
 
-    def setup(conn, schema, table):
+    def setup(conn, table):
         cur = conn.cursor()
-        cur.execute(schema)
         cur.execute(table)
 
 

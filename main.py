@@ -11,7 +11,7 @@ def main():
 
     #connects to the database
     conn = database_driver.connect(host, database, user, password)
-    #creates the schema and tables if they do not already exist
+    #creates the table if it does not already exist
     database_driver.setup(conn, create_subscription_table)
     #inserts values into the table
     database_driver.insert_values(conn, df)
