@@ -1,20 +1,20 @@
-from Database import database_driver
-from Requests import extract_transform
+from Database import Database
+from Requests import CreateDataframe
 from queries import *
 from config import host, database, user, password
 
 def main():
-    #pulls data from Stripe api and returns a dataframe
-    df = extract_transform.get_df()
+    #pulls data from Stripe API and returns a dataframe
+    df = CreateDataframe.get_df()
     #returns a dataframe with only the relevant columns and correct datatypes
-    df = extract_transform.cleaning_df(df)
+    df = CreateDataframe.cleaning_df(df)
 
     #connects to the database
-    conn = database_driver.connect(host, database, user, password)
+    conn = Database.connect(host, database, user, password)
     #creates the table if it does not already exist
-    database_driver.setup(conn, create_subscription_table)
-    #inserts values into the table
-    database_driver.insert_values(conn, df)
+    Database.setup(conn, create_subscription_table)
+    #inserts values into the table, updates rows with existing ids
+    Database.insert_values(conn, df)
 
     #closes the connection
     conn.close()

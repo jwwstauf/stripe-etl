@@ -4,7 +4,7 @@ from config import api_key
 import numpy as np
 from time import sleep
 
-class extract_transform():
+class CreateDataframe():
 
 
     def get_df():

@@ -3,7 +3,7 @@ from queries import *
 import psycopg2
 
 
-class database_driver():
+class Database():
 
     def connect(host, database, user, password):
         """ Connect to the PostgreSQL database server """
@@ -16,14 +16,14 @@ class database_driver():
         except (Exception, psycopg2.DatabaseError) as error:
             print(error)
             sys.exit(1) 
-        print("Connection successful")
         return conn
-
+    
+    #creates the table if it does not exist
     def setup(conn, table):
         cur = conn.cursor()
         cur.execute(table)
 
-
+    #creates rows with a new id and updates rows with an existing id
     def insert_values(conn, df):
     
         cur = conn.cursor()
